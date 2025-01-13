@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { WebView } from "~/shared/bridge";
+import { Providers } from "~/app/Providers";
+
+const BASE_URL = __DEV__ ? "http://localhost:5173" : "https://app.azito.kr";
+const DECELERATION_RATE = 0.999;
+const JAVASCRIPT_BEFORE_CONTENTLOADED = `window.__APP_DEV__="${
+  __DEV__ ? "development" : "production"
+}";`;
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <Providers>
       <StatusBar style="auto" />
-    </View>
+      <WebView
+        source={{ uri: BASE_URL }}
+        style={{ flex: 1 }}
+        mixedContentMode={"always"}
+        webviewDebuggingEnabled={__DEV__}
+        javaScriptEnabled={true}
+        bounces={true}
+        allowsBackForwardNavigationGestures={true}
+        decelerationRate={DECELERATION_RATE}
+        overScrollMode={"never"}
+        scrollEnabled={true}
+        injectedJavaScriptBeforeContentLoaded={JAVASCRIPT_BEFORE_CONTENTLOADED}
+      />
+    </Providers>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
