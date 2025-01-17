@@ -1,4 +1,4 @@
-import { createWebView, bridge } from "@webview-bridge/react-native";
+import { bridge, createWebView } from "@webview-bridge/react-native";
 import { getUserAppVersion } from "./app-version/get-user-app-version";
 import { copyClipboard } from "./clipboard/copy-clipboard";
 import { downloadImage } from "./images/download-image";
@@ -7,7 +7,7 @@ import { openExternalUrl } from "./linking/open-external-url";
 import { openInAppUrl } from "./linking/open-in-app-url";
 import { openSetting } from "./open-setting/open-setting";
 import { requestReview } from "./review/request-review";
-import { notifySafeArea } from "./safe-area";
+import { getInsets, notifySafeArea } from "./safe-area";
 
 export const appBridge = bridge({
   getUserAppVersion: async () => getUserAppVersion(),
@@ -19,6 +19,7 @@ export const appBridge = bridge({
   openSetting,
   requestReview,
   notifySafeArea,
+  getInsets: async () => getInsets(),
 });
 
 export const { WebView, postMessage } = createWebView({

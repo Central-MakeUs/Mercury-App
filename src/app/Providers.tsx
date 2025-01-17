@@ -1,9 +1,9 @@
-import { PropsWithChildren, useEffect, useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary, Suspense } from "@suspensive/react";
-import { SafeAreaContext } from "../shared/bridge/safe-area";
-import { KeyboardAvoidingView, Platform } from "react-native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
+import { type PropsWithChildren, useEffect, useState } from "react";
+import { KeyboardAvoidingView, Platform } from "react-native";
+import { SafeAreaContext } from "../shared/bridge/safe-area";
 
 export const Providers = (props: PropsWithChildren) => {
   const { children } = props;
@@ -19,14 +19,16 @@ export const Providers = (props: PropsWithChildren) => {
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary fallback={null}>
         <Suspense fallback={null}>
-          <SafeAreaContext>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === "ios" ? "padding" : undefined}
-              style={{ flex: 1 }}
-            >
-              {children}
-            </KeyboardAvoidingView>
-          </SafeAreaContext>
+          <FontProvider>
+            <SafeAreaContext>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : undefined}
+                style={{ flex: 1 }}
+              >
+                {children}
+              </KeyboardAvoidingView>
+            </SafeAreaContext>
+          </FontProvider>
         </Suspense>
       </ErrorBoundary>
     </QueryClientProvider>
