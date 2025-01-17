@@ -1,8 +1,8 @@
-import { StatusBar } from "expo-status-bar";
 import { useRef } from "react";
 import type WebView from "react-native-webview";
 import { Providers } from "~/app/Providers";
 import { WebView as MercuryWebView } from "~/shared/bridge";
+import { MercuryStatusBar } from "~/shared/bridge/status-bar";
 import { RefreshProvider } from "~/shared/pull-to-refresh/RefreshProvider";
 
 const BASE_URL = __DEV__ ? "http://localhost:5173" : "https://app.azito.kr";
@@ -15,7 +15,7 @@ export default function App() {
   const webViewRef = useRef<WebView>(null);
   return (
     <Providers>
-      <StatusBar style="auto" />
+      <MercuryStatusBar />
       <RefreshProvider webViewRef={webViewRef}>
         <MercuryWebView
           ref={webViewRef}
