@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useRef } from "react";
+import type WebView from "react-native-webview";
+import { Providers } from "~/app/Providers";
+import { WebView as MercuryWebView } from "~/shared/bridge";
+import { MercuryStatusBar } from "~/shared/bridge/status-bar";
+import { RefreshProvider } from "~/shared/pull-to-refresh/RefreshProvider";
+
+const BASE_URL = __DEV__ ? "http://localhost:5173" : "https://app.azito.kr";
+const DECELERATION_RATE = 0.999;
+const JAVASCRIPT_BEFORE_CONTENTLOADED = `window.__APP_DEV__="${
+  __DEV__ ? "development" : "production"
+}";`;
 
 export default function App() {
+  const webViewRef = useRef<WebView>(null);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Providers>
+      <MercuryStatusBar />
+      <RefreshProvider webViewRef={webViewRef}>
+        <MercuryWebView
+          ref={webViewRef}
+          source={{ uri: BASE_URL }}
+          style={{ flex: 1 }}
+          mixedContentMode={"always"}
+          webviewDebuggingEnabled={__DEV__}
+          javaScriptEnabled={true}
+          bounces={true}
+          allowsBackForwardNavigationGestures={true}
+          decelerationRate={DECELERATION_RATE}
+          overScrollMode={"never"}
+          scrollEnabled={true}
+          injectedJavaScriptBeforeContentLoaded={
+            JAVASCRIPT_BEFORE_CONTENTLOADED
+          }
+        />
+      </RefreshProvider>
+    </Providers>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
