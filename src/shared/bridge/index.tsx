@@ -2,8 +2,6 @@ import { bridge, createWebView } from "@webview-bridge/react-native";
 import type { StatusBarStyle } from "expo-status-bar";
 import { getUserAppVersion } from "./app-version/get-user-app-version";
 import { copyClipboard } from "./clipboard/copy-clipboard";
-import { downloadImage } from "./images/download-image";
-import { uploadImage } from "./images/upload-image";
 import { openExternalUrl } from "./linking/open-external-url";
 import { openInAppUrl } from "./linking/open-in-app-url";
 import { openSetting } from "./open-setting/open-setting";
@@ -14,8 +12,6 @@ import { notifyStatusBarStyle } from "./status-bar";
 export const appBridge = bridge({
   getUserAppVersion: async () => getUserAppVersion(),
   copyClipboard,
-  downloadImage,
-  uploadImage,
   openExternalUrl,
   openInAppUrl,
   openSetting,
