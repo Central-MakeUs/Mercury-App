@@ -27,3 +27,9 @@ pre-commit:
     lint:
       run: pnpm run check:biome
       stage_fixed: true
+    test-type:
+      run: pnpm run test:type
+      stage_fixed: true
+    test-doctor:
+      run: pnpm run test:doctor
+      stage_fixed: true
