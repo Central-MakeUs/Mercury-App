@@ -5,7 +5,10 @@ import { WebView as MercuryWebView } from "~/shared/bridge";
 import { MercuryStatusBar } from "~/shared/bridge/status-bar";
 import { RefreshProvider } from "~/shared/pull-to-refresh/RefreshProvider";
 
-const BASE_URL = __DEV__ ? "http://localhost:5173" : "https://app.azito.kr";
+const BASE_URL = __DEV__
+  ? "https://www.mercuryplanet.co.kr"
+  : "https://www.mercuryplanet.co.kr";
+
 const DECELERATION_RATE = 0.999;
 const JAVASCRIPT_BEFORE_CONTENTLOADED = `window.__APP_DEV__="${
   __DEV__ ? "development" : "production"

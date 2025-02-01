@@ -8,7 +8,7 @@ import { openExternalUrl } from "./linking/open-external-url";
 import { openInAppUrl } from "./linking/open-in-app-url";
 import { openSetting } from "./open-setting/open-setting";
 import { requestReview } from "./review/request-review";
-import { getInsets, notifySafeArea } from "./safe-area";
+import { getInsets } from "./safe-area";
 import { notifyStatusBarStyle } from "./status-bar";
 
 export const appBridge = bridge({
@@ -20,7 +20,6 @@ export const appBridge = bridge({
   openInAppUrl,
   openSetting,
   requestReview,
-  notifySafeArea,
   getInsets: async () => getInsets(),
   notifyStatusBar: async (style: StatusBarStyle) => notifyStatusBarStyle(style),
 });
