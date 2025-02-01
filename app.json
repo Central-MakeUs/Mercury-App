@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mercury",
-    "slug": "Mercury",
+    "slug": "mercury",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,8 +21,25 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification_icon.png",
+          "color": "#ffffff",
+          "defaultChannel": "default",
+          "enableBackgroundRemoteNotifications": false
+        }
+      ]
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "owner": "mercuryorganization",
+    "extra": {
+      "eas": {
+        "projectId": "2f8476ef-cef6-471c-88a0-12a322330cad"
+      }
     }
   }
 }
