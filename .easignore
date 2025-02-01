@@ -35,7 +35,6 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 firebase_adminsdk.json
-google-services.json
 
 /ios
 /android
