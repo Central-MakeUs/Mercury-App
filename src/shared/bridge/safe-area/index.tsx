@@ -47,7 +47,3 @@ const NotifyInsets = () => {
 
   return null;
 };
-
-export const notifySafeArea = async (edges: SafeAreaEdges[]) => {
-  safeAreaObservable.notify(edges);
-};

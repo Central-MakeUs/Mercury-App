@@ -157,7 +157,20 @@
       "quoteStyle": "double",
       "attributePosition": "auto"
     },
-    "globals": ["describe", "it", "test", "expect", "JSX", "React", "beforeEach", "afterEach", "vi", "afterAll", "beforeAll"]
+    "globals": [
+      "__DEV__",
+      "describe",
+      "it",
+      "test",
+      "expect",
+      "JSX",
+      "React",
+      "beforeEach",
+      "afterEach",
+      "vi",
+      "afterAll",
+      "beforeAll"
+    ]
   },
   "files": {
     "ignore": [
