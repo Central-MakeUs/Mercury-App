@@ -18,10 +18,12 @@ const JAVASCRIPT_BEFORE_CONTENTLOADED = `window.__APP_DEV__="${
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
+
   return (
     <NotificationProvider>
       <Providers>
         <MercuryStatusBar />
+
         <RefreshProvider webViewRef={webViewRef}>
           <MercuryWebView
             ref={webViewRef}
