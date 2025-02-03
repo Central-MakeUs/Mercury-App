@@ -1,6 +1,9 @@
 import { bridge, createWebView } from "@webview-bridge/react-native";
 import type { StatusBarStyle } from "expo-status-bar";
 import { cancelTimerNotification } from "../pushNotifications/cancelTimerNotification";
+import { getPushToken } from "../pushNotifications/getPushToken";
+import { hasPushNotificationPermission } from "../pushNotifications/hasPushNotificationPermission";
+import { requestPushNotificationPermission } from "../pushNotifications/requestPushNotificationPermission";
 import { scheduleTimerNotification } from "../pushNotifications/scheduleTimerNotification";
 import { getUserAppVersion } from "./app-version/get-user-app-version";
 import { copyClipboard } from "./clipboard/copy-clipboard";
@@ -24,11 +27,13 @@ export const appBridge = bridge({
   requestReview,
   getInsets: async () => getInsets(),
   notifyStatusBar: async (style: StatusBarStyle) => notifyStatusBarStyle(style),
-  getPushToken: async () => {},
   triggerHapticFeedback: async (type: HapticType) =>
     triggerHapticFeedback(type),
   scheduleTimerNotification,
   cancelTimerNotification,
+  getPushToken,
+  requestPushNotificationPermission,
+  hasPushNotificationPermission,
 });
 
 export const { WebView, postMessage } = createWebView({
