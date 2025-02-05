@@ -4,11 +4,10 @@ import type WebView from "react-native-webview";
 import { Providers } from "~/app/Providers";
 import { WebView as MercuryWebView } from "~/shared/bridge";
 import { MercuryStatusBar } from "~/shared/bridge/status-bar";
-import { RefreshProvider } from "~/shared/pull-to-refresh/RefreshProvider";
 import { NotificationProvider } from "~/shared/pushNotifications/NotificationContext";
 
 const BASE_URL = __DEV__
-  ? "https://www.mercuryplanet.co.kr"
+  ? "http://119.196.213.25:5173"
   : "https://www.mercuryplanet.co.kr";
 
 const DECELERATION_RATE = 0.999;
@@ -24,24 +23,24 @@ export default function App() {
       <Providers>
         <MercuryStatusBar />
 
-        <RefreshProvider webViewRef={webViewRef}>
-          <MercuryWebView
-            ref={webViewRef}
-            source={{ uri: BASE_URL }}
-            style={{ flex: 1 }}
-            mixedContentMode={"always"}
-            webviewDebuggingEnabled={__DEV__}
-            javaScriptEnabled={true}
-            bounces={true}
-            allowsBackForwardNavigationGestures={true}
-            decelerationRate={DECELERATION_RATE}
-            overScrollMode={"never"}
-            scrollEnabled={true}
-            injectedJavaScriptBeforeContentLoaded={
-              JAVASCRIPT_BEFORE_CONTENTLOADED
-            }
-          />
-        </RefreshProvider>
+        {/* <RefreshProvider webViewRef={webViewRef}> */}
+        <MercuryWebView
+          ref={webViewRef}
+          source={{ uri: BASE_URL }}
+          style={{ flex: 1 }}
+          mixedContentMode={"always"}
+          webviewDebuggingEnabled={__DEV__}
+          javaScriptEnabled={true}
+          bounces={true}
+          allowsBackForwardNavigationGestures={true}
+          decelerationRate={DECELERATION_RATE}
+          overScrollMode={"never"}
+          scrollEnabled={true}
+          injectedJavaScriptBeforeContentLoaded={
+            JAVASCRIPT_BEFORE_CONTENTLOADED
+          }
+        />
+        {/* </RefreshProvider> */}
       </Providers>
     </NotificationProvider>
   );

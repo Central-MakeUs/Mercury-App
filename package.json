@@ -19,7 +19,7 @@
     "@tanstack/react-query": "^5.64.0",
     "@webview-bridge/react-native": "^1.7.5",
     "@xionwcfm/utils": "^0.0.3",
-    "expo": "~52.0.28",
+    "expo": "~52.0.30",
     "expo-clipboard": "~7.0.1",
     "expo-constants": "~17.0.5",
     "expo-device": "~7.0.2",
