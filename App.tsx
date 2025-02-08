@@ -1,5 +1,6 @@
 import * as Notifications from "expo-notifications";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { BackHandler, } from "react-native";
 import type WebView from "react-native-webview";
 import { Providers } from "~/app/Providers";
 import { WebView as MercuryWebView } from "~/shared/bridge";
@@ -17,6 +18,27 @@ const JAVASCRIPT_BEFORE_CONTENTLOADED = `window.__APP_DEV__="${
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
+  const [canGoBack, setCanGoBack] = useState(false);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const onBackPress = () => {
+      if (canGoBack && webViewRef.current) {
+        webViewRef.current.goBack();
+        return true;
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", onBackPress);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+  }, [canGoBack, webViewRef]);
+
+  // 웹뷰 네비게이션 상태 변경 시 canGoBack 업데이트
+  const onNavigationStateChange = (navState: any) => {
+    setCanGoBack(navState.canGoBack);
+  };
 
   return (
     <NotificationProvider>
@@ -36,6 +58,7 @@ export default function App() {
           decelerationRate={DECELERATION_RATE}
           overScrollMode={"never"}
           scrollEnabled={true}
+          onNavigationStateChange={onNavigationStateChange}
           injectedJavaScriptBeforeContentLoaded={
             JAVASCRIPT_BEFORE_CONTENTLOADED
           }
