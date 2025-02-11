@@ -1,6 +1,6 @@
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
-import { BackHandler, } from "react-native";
+import { BackHandler } from "react-native";
 import type WebView from "react-native-webview";
 import { Providers } from "~/app/Providers";
 import { WebView as MercuryWebView } from "~/shared/bridge";
@@ -8,7 +8,7 @@ import { MercuryStatusBar } from "~/shared/bridge/status-bar";
 import { NotificationProvider } from "~/shared/pushNotifications/NotificationContext";
 
 const BASE_URL = __DEV__
-  ? "http://119.196.213.25:5173"
+  ? process.env.EXPO_PUBLIC_DEV_WEBVIEW_URL ?? ""
   : "https://www.mercuryplanet.co.kr";
 
 const DECELERATION_RATE = 0.999;
