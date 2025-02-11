@@ -4,15 +4,16 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test:type": "tsc --noEmit",
     "test:doctor": "npx expo-doctor",
     "prebuild": "npx expo prebuild",
     "build:all": "eas build --platform all",
     "bump-deps": "npx expo install --check",
-    "check:biome": "npx @biomejs/biome check --config-path=./biome-ci.json --diagnostic-level=error --write ."
+    "check:biome": "npx @biomejs/biome check --config-path=./biome-ci.json --diagnostic-level=error --write .",
+    "ci": "npm run test:type && npm run check:biome && npm run test:doctor && npm run prebuild"
   },
   "dependencies": {
     "@suspensive/react": "^2.18.11",
