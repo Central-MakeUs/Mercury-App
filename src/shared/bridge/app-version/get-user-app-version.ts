@@ -1,5 +1,5 @@
-import Constants from "expo-constants";
+import * as Application from "expo-application";
 
 export const getUserAppVersion = () => {
-  return Constants.expoConfig?.version ?? null;
+  return Application.nativeBuildVersion ?? null;
 };
