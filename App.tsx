@@ -1,13 +1,14 @@
+import * as Linking from "expo-linking";
 import * as Notifications from "expo-notifications";
 import { useRef } from "react";
 import type WebView from "react-native-webview";
 import { Providers } from "~/app/Providers";
-import { WebView as MercuryWebView } from "~/shared/bridge";
+import { WebView as MercuryWebView, postMessage } from "~/shared/bridge";
 import { MercuryStatusBar } from "~/shared/bridge/status-bar";
 import { NotificationProvider } from "~/shared/pushNotifications/NotificationContext";
 
 const BASE_URL = __DEV__
-  ? "http://119.196.213.25:5173"
+  ? "http://192.168.0.20:5173/"
   : "https://www.mercuryplanet.co.kr";
 
 const DECELERATION_RATE = 0.999;
@@ -17,6 +18,26 @@ const JAVASCRIPT_BEFORE_CONTENTLOADED = `window.__APP_DEV__="${
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
+
+  const url = Linking.useURL();
+
+  if (url) {
+    const { hostname, path, queryParams } = Linking.parse(url);
+
+    if (
+      typeof queryParams?.access_token === "string" &&
+      typeof queryParams?.refresh_token === "string" &&
+      typeof queryParams?.isNewUser === "string" &&
+      typeof queryParams?.oauthType === "string"
+    ) {
+      postMessage("login", {
+        access_token: queryParams?.access_token,
+        refresh_token: queryParams?.refresh_token,
+        isNewUser: queryParams?.isNewUser,
+        oauthType: queryParams?.oauthType,
+      });
+    }
+  }
 
   return (
     <NotificationProvider>

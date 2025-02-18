@@ -36,6 +36,7 @@ yarn-error.*
 *.tsbuildinfo
 firebase_adminsdk.json
 google-services.json
+pnpm-lock.yaml
 
 /ios
 /android
