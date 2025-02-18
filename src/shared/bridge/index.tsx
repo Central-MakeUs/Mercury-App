@@ -1,4 +1,8 @@
-import { bridge, createWebView } from "@webview-bridge/react-native";
+import {
+  bridge,
+  createWebView,
+  postMessageSchema,
+} from "@webview-bridge/react-native";
 import type { StatusBarStyle } from "expo-status-bar";
 import { cancelTimerNotification } from "../pushNotifications/cancelTimerNotification";
 import { getPushToken } from "../pushNotifications/getPushToken";
@@ -36,7 +40,20 @@ export const appBridge = bridge({
   hasPushNotificationPermission,
 });
 
+const appPostMessageSchema = postMessageSchema({
+  login: {
+    validate: (data) =>
+      data as {
+        refresh_token: string;
+        access_token: string;
+        isNewUser: string;
+        oauthType: string;
+      },
+  },
+});
+
 export const { WebView, postMessage } = createWebView({
   bridge: appBridge,
   debug: true,
+  postMessageSchema: appPostMessageSchema,
 });

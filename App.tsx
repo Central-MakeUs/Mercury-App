@@ -1,9 +1,10 @@
+import * as Linking from "expo-linking";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
 import { BackHandler } from "react-native";
 import type WebView from "react-native-webview";
 import { Providers } from "~/app/Providers";
-import { WebView as MercuryWebView } from "~/shared/bridge";
+import { WebView as MercuryWebView, postMessage } from "~/shared/bridge";
 import { MercuryStatusBar } from "~/shared/bridge/status-bar";
 import { NotificationProvider } from "~/shared/pushNotifications/NotificationContext";
 
@@ -39,6 +40,26 @@ export default function App() {
   const onNavigationStateChange = (navState: any) => {
     setCanGoBack(navState.canGoBack);
   };
+
+  const url = Linking.useURL();
+
+  if (url) {
+    const { hostname, path, queryParams } = Linking.parse(url);
+
+    if (
+      typeof queryParams?.access_token === "string" &&
+      typeof queryParams?.refresh_token === "string" &&
+      typeof queryParams?.isNewUser === "string" &&
+      typeof queryParams?.oauthType === "string"
+    ) {
+      postMessage("login", {
+        access_token: queryParams?.access_token,
+        refresh_token: queryParams?.refresh_token,
+        isNewUser: queryParams?.isNewUser,
+        oauthType: queryParams?.oauthType,
+      });
+    }
+  }
 
   return (
     <NotificationProvider>
