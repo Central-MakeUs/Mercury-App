@@ -2,6 +2,7 @@ import * as Linking from "expo-linking";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
 import { BackHandler } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import type WebView from "react-native-webview";
 import { Providers } from "~/app/Providers";
 import { WebView as MercuryWebView, postMessage } from "~/shared/bridge";
@@ -67,23 +68,25 @@ export default function App() {
         <MercuryStatusBar />
 
         {/* <RefreshProvider webViewRef={webViewRef}> */}
-        <MercuryWebView
-          ref={webViewRef}
-          source={{ uri: BASE_URL }}
-          style={{ flex: 1 }}
-          mixedContentMode={"always"}
-          webviewDebuggingEnabled={__DEV__}
-          javaScriptEnabled={true}
-          bounces={true}
-          allowsBackForwardNavigationGestures={true}
-          decelerationRate={DECELERATION_RATE}
-          overScrollMode={"never"}
-          scrollEnabled={true}
-          onNavigationStateChange={onNavigationStateChange}
-          injectedJavaScriptBeforeContentLoaded={
-            JAVASCRIPT_BEFORE_CONTENTLOADED
-          }
-        />
+        <SafeAreaView style={{ flex: 1 }}>
+          <MercuryWebView
+            ref={webViewRef}
+            source={{ uri: BASE_URL }}
+            style={{ flex: 1 }}
+            mixedContentMode={"always"}
+            webviewDebuggingEnabled={__DEV__}
+            javaScriptEnabled={true}
+            bounces={true}
+            allowsBackForwardNavigationGestures={true}
+            decelerationRate={DECELERATION_RATE}
+            overScrollMode={"never"}
+            scrollEnabled={true}
+            onNavigationStateChange={onNavigationStateChange}
+            injectedJavaScriptBeforeContentLoaded={
+              JAVASCRIPT_BEFORE_CONTENTLOADED
+            }
+          />
+        </SafeAreaView>
         {/* </RefreshProvider> */}
       </Providers>
     </NotificationProvider>
